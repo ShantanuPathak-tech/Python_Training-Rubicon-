@@ -9,4 +9,6 @@ urlpatterns = [
     path("high-scorers/", views.high_scorers, name="high_scorers"),
     path("edit/<int:id>/", views.edit_student, name="edit_student"),
     path("delete/<int:id>/", views.delete_student, name="delete_student"),
+    path("export/csv/", views.export_students_csv, name="export_csv"),
+    path("stats/", views.student_stats, name="stats"),
 ]

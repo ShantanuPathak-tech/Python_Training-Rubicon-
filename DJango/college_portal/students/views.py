@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Student
+import csv
+from django.http import HttpResponse
 
 def home(request):
     return render(request, "students/home.html")
@@ -41,3 +43,32 @@ def delete_student(request, id):
     if request.method == "POST":
         student.delete()
         return redirect("student_list")
+    
+def export_students_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="students.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['ID', 'Name', 'Marks', 'Department', 'Grade'])
+
+    students = Student.objects.all().order_by('-marks')
+    for student in students:
+        writer.writerow([student.id, student.name, student.marks, student.department, student.get_grade()])
+
+    return response
+
+
+def student_stats(request):
+    total_students = Student.objects.count()
+    if total_students > 0:
+        avg_marks = sum(s.marks for s in Student.objects.all()) / total_students
+    else:
+        avg_marks = 0
+
+    departments = Student.objects.values_list('department', flat=True).distinct()
+    
+    return render(request, "students/stats.html", {
+        "total_students": total_students,
+        "avg_marks": round(avg_marks, 2),
+        "departments": list(departments)
+    })

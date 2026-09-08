@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal Analytics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="text-primary mb-4">Portal Statistics</h1>
+        
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <div class="card shadow border-0 bg-primary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Students</h5>
+                        <h2 class="display-4 fw-bold">{{ total_students }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow border-0 bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Average Marks</h5>
+                        <h2 class="display-4 fw-bold">{{ avg_marks }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h4>Active Departments</h4>
+                <ul class="list-group">
+                    {% for dept in departments %}
+                        <li class="list-group-item">{{ dept }}</li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">No departments available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+    </div>
+</body>
+</html>

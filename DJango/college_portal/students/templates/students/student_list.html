@@ -13,6 +13,7 @@
                 <a href="{% url 'home' %}" class="btn btn-outline-secondary me-2">Home</a>
                 <a href="{% url 'add_student' %}" class="btn btn-success me-2">Add Student</a>
                 <a href="{% url 'search_student' %}" class="btn btn-info text-white">Search</a>
+                <a href="{% url 'export_csv' %}" class="btn btn-outline-dark me-2">Download CSV</a>
             </div>
         </div>
 
@@ -33,6 +34,7 @@
                             <td class="fw-bold">{{ student.name }}</td>
                             <td><span class="badge bg-primary fs-6">{{ student.marks }}</span></td>
                             <td>{{ student.department }}</td>
+                            <td><span class="badge bg-secondary">{{ student.get_grade }}</span></td>
                             <td class="text-end me-2">
                                 <a href="{% url 'edit_student' student.id %}" class="btn btn-sm btn-warning me-1">Edit</a>
                                 <form method="POST" action="{% url 'delete_student' student.id %}" style="display:inline;">

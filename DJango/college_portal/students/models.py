@@ -7,3 +7,18 @@ class Student(models.Model):
 
     def __str__(self):
         return self.name
+
+    # NEW FUNCTION: Auto-calculate letter grade
+    def get_grade(self):
+        if self.marks >= 90:
+            return 'A+'
+        elif self.marks >= 80:
+            return 'A'
+        elif self.marks >= 70:
+            return 'B'
+        elif self.marks >= 60:
+            return 'C'
+        elif self.marks >= 50:
+            return 'D'
+        else:
+            return 'F'
